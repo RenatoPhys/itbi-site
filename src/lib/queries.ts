@@ -1,15 +1,13 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { MapBounds, MapPoint, TransacaoITBI } from "./types";
 
-export async function getDistinctYears(
-  supabase: SupabaseClient
-): Promise<number[]> {
-  const { data } = await supabase.from("transacoes_itbi").select("anomes");
-
-  if (!data) return [];
-
-  const years = [...new Set(data.map((d) => Math.floor(d.anomes / 100)))];
-  return years.sort((a, b) => b - a);
+export function getDistinctYears(): number[] {
+  const currentYear = new Date().getFullYear();
+  const years: number[] = [];
+  for (let y = currentYear; y >= 2006; y--) {
+    years.push(y);
+  }
+  return years;
 }
 
 export async function getMapPoints(
@@ -26,7 +24,8 @@ export async function getMapPoints(
     .gte("latitude", bounds.south)
     .lte("latitude", bounds.north)
     .gte("longitude", bounds.west)
-    .lte("longitude", bounds.east);
+    .lte("longitude", bounds.east)
+    .limit(5000);
 
   if (!data) return [];
 

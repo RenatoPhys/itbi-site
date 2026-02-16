@@ -137,12 +137,11 @@ export default function MapContainerComponent() {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    getDistinctYears(supabase).then((yrs) => {
-      setYears(yrs);
-      if (yrs.length > 0) {
-        setSelectedYear(yrs[0]);
-      }
-    });
+    const yrs = getDistinctYears();
+    setYears(yrs);
+    if (yrs.length > 0) {
+      setSelectedYear(yrs[0]);
+    }
   }, []);
 
   const loadPoints = useCallback(
