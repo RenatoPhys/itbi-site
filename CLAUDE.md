@@ -20,7 +20,7 @@ Requires `.env.local` with:
 
 ## Architecture
 
-Next.js App Router project for querying ITBI (real estate transfer tax) transactions in São Paulo. Data lives in Supabase (`transacoes_itbi` table) with RLS enabled (public read).
+Next.js App Router project for querying ITBI (real estate transfer tax) transactions in São Paulo. Deployed at https://mapa-precos-imob-sao-paulo.vercel.app/ Data lives in Supabase (`transacoes_itbi` table) with RLS enabled (public read).
 
 ### Supabase Client Pattern
 
