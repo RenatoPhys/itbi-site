@@ -2,24 +2,30 @@ import { createClient } from "@/lib/supabase-server";
 import Link from "next/link";
 import LogoutButton from "./logout-button";
 
+const stats = [
+  { value: "+1 milhão", label: "de transações registradas" },
+  { value: "20 anos", label: "de dados (2006–2025)" },
+  { value: "Dados oficiais", label: "da Prefeitura de São Paulo" },
+];
+
 const sections = [
   {
     href: "/mapa",
     title: "Mapa Interativo",
-    description: "Visualize transacoes de ITBI no mapa de Sao Paulo, filtradas por ano.",
-    color: "bg-blue-100 text-blue-800",
+    description:
+      "Visualize transações de ITBI no mapa de São Paulo com marcadores coloridos por faixa de preço, filtrados por ano.",
   },
   {
     href: "/busca",
-    title: "Busca por Endereco",
-    description: "Pesquise por CEP e numero para ver o historico de transacoes do imovel.",
-    color: "bg-green-100 text-green-800",
+    title: "Busca por Endereço",
+    description:
+      "Pesquise por CEP e número para ver o histórico completo de transações e a evolução do preço/m².",
   },
   {
     href: "/tendencias",
-    title: "Tendencias",
-    description: "Insights e analises sobre o mercado imobiliario. Em breve.",
-    color: "bg-purple-100 text-purple-800",
+    title: "Tendências",
+    description:
+      "Insights e análises sobre o mercado imobiliário paulistano. Em breve.",
   },
 ];
 
@@ -30,57 +36,96 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="mx-auto max-w-4xl px-4 py-12">
-        <div className="mb-10 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-            ITBI - Sao Paulo
-          </h1>
-          <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
-            Sistema de consulta de transacoes imobiliarias
-          </p>
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Hero */}
+      <section className="px-4 pb-16 pt-20 text-center">
+        <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl dark:text-white">
+          Radar Imobiliário SP
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+          Consulte preços reais de imóveis em São Paulo com base em dados
+          oficiais de ITBI da Prefeitura.
+        </p>
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <Link
+            href="/mapa"
+            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+          >
+            Explorar mapa
+          </Link>
+          <Link
+            href="/busca"
+            className="rounded-lg border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-900"
+          >
+            Buscar endereço
+          </Link>
         </div>
+      </section>
 
-        <div className="grid gap-6 md:grid-cols-3">
+      {/* Stats */}
+      <section className="border-y border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+        <div className="mx-auto grid max-w-4xl grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0 dark:divide-gray-800">
+          {stats.map((stat) => (
+            <div key={stat.value} className="px-6 py-8 text-center">
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Feature cards */}
+      <section className="px-4 py-16">
+        <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
           {sections.map((section) => (
             <Link
               key={section.href}
               href={section.href}
-              className="group rounded-2xl bg-white p-6 shadow-md transition-all hover:shadow-lg dark:bg-gray-900"
+              className="group rounded-xl border border-gray-200 p-6 transition-all hover:border-blue-200 hover:shadow-md dark:border-gray-800 dark:hover:border-blue-900"
             >
-              <span
-                className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${section.color}`}
-              >
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                 {section.title}
-              </span>
-              <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                 {section.description}
               </p>
               <span className="mt-4 inline-block text-sm font-medium text-blue-600 group-hover:underline dark:text-blue-400">
-                Acessar →
+                Acessar &rarr;
               </span>
             </Link>
           ))}
         </div>
+      </section>
 
-        <div className="mt-10 text-center">
-          {user ? (
-            <div className="inline-flex items-center gap-4 rounded-xl bg-white px-6 py-3 shadow dark:bg-gray-900">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                {user.email}
-              </span>
-              <LogoutButton />
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="inline-block rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-            >
-              Entrar / Criar conta
-            </Link>
-          )}
-        </div>
+      {/* Auth */}
+      <div className="pb-8 text-center">
+        {user ? (
+          <div className="inline-flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-2.5 dark:border-gray-800">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
+              {user.email}
+            </span>
+            <LogoutButton />
+          </div>
+        ) : (
+          <Link
+            href="/login"
+            className="text-sm font-medium text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+          >
+            Entrar / Criar conta
+          </Link>
+        )}
       </div>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-100 px-4 py-6 text-center dark:border-gray-800">
+        <p className="text-xs text-gray-400 dark:text-gray-600">
+          Fonte: Secretaria Municipal da Fazenda — ITBI São Paulo
+        </p>
+      </footer>
     </div>
   );
 }

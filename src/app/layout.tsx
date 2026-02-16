@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ITBI - MVP",
-  description: "Sistema de cálculo e consulta de ITBI",
+  title: "Radar Imobiliário SP — Preços de Imóveis em São Paulo",
+  description: "Consulte mais de 1 milhão de transações imobiliárias reais da Prefeitura de São Paulo. Mapa interativo, busca por endereço e tendências de preço.",
 };
 
 export default function RootLayout({

@@ -20,7 +20,7 @@ export default function Navbar() {
           href="/"
           className="text-xl font-bold text-blue-600 dark:text-blue-400"
         >
-          ITBI
+          Radar Imobiliário SP
         </Link>
         <div className="flex gap-1">
           {links.map((link) => (
