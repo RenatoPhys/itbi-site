@@ -25,4 +25,12 @@ export interface MapPoint {
   avg_valor: number;
   avg_preco_m2: number;
   count: number;
+  cep: number | null;
+}
+
+export interface MapBounds {
+  north: number;
+  south: number;
+  east: number;
+  west: number;
 }

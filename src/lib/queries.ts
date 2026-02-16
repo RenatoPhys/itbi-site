@@ -1,5 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { MapPoint, TransacaoITBI } from "./types";
+import { MapBounds, MapPoint, TransacaoITBI } from "./types";
 
 export async function getDistinctYears(
   supabase: SupabaseClient
@@ -14,14 +14,19 @@ export async function getDistinctYears(
 
 export async function getMapPoints(
   supabase: SupabaseClient,
-  year: number
+  year: number,
+  bounds: MapBounds
 ): Promise<MapPoint[]> {
   const { data } = await supabase
     .from("transacoes_itbi")
-    .select("logradouro, numero, latitude, longitude, valor, preco_m2")
+    .select("logradouro, numero, cep, latitude, longitude, valor, preco_m2")
     .gte("anomes", year * 100 + 1)
     .lte("anomes", year * 100 + 12)
-    .not("latitude", "is", null);
+    .not("latitude", "is", null)
+    .gte("latitude", bounds.south)
+    .lte("latitude", bounds.north)
+    .gte("longitude", bounds.west)
+    .lte("longitude", bounds.east);
 
   if (!data) return [];
 
@@ -32,6 +37,7 @@ export async function getMapPoints(
       lng: number;
       logradouro: string;
       numero: number;
+      cep: number | null;
       valores: number[];
       precos: number[];
     }
@@ -45,6 +51,7 @@ export async function getMapPoints(
         lng: row.longitude,
         logradouro: row.logradouro,
         numero: row.numero,
+        cep: row.cep,
         valores: [],
         precos: [],
       });
@@ -56,6 +63,7 @@ export async function getMapPoints(
   return Array.from(grouped.values()).map((g) => ({
     logradouro: g.logradouro,
     numero: g.numero,
+    cep: g.cep,
     latitude: g.lat,
     longitude: g.lng,
     avg_valor: g.valores.reduce((a, b) => a + b, 0) / g.valores.length,
