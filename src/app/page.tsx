@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase-server";
-import { redirect } from "next/navigation";
+import Link from "next/link";
 import LogoutButton from "./logout-button";
 
 export default async function Home() {
@@ -7,10 +7,6 @@ export default async function Home() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login");
-  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
@@ -34,16 +30,26 @@ export default async function Home() {
             </span>
           </div>
 
-          <div className="mt-8 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Logado como
-            </p>
-            <p className="font-medium text-gray-900 dark:text-white">
-              {user.email}
-            </p>
-          </div>
-
-          <LogoutButton />
+          {user ? (
+            <>
+              <div className="mt-8 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Logado como
+                </p>
+                <p className="font-medium text-gray-900 dark:text-white">
+                  {user.email}
+                </p>
+              </div>
+              <LogoutButton />
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="mt-8 block rounded-lg bg-blue-600 py-3 text-center font-medium text-white transition-colors hover:bg-blue-700"
+            >
+              Entrar / Criar conta
+            </Link>
+          )}
         </div>
       </main>
     </div>
