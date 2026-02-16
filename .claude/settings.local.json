@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git --version:*)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" -v)",
+      "Bash(\"/c/Program Files \\(x86\\)/nodejs/node.exe\" -v)",
+      "Bash(cmd //c \"node -v\")",
+      "Bash(cmd //c \"git --version\")",
+      "Bash(cmd //c \"gh --version\")",
+      "Bash(cmd //c \"node -v && npm -v && gh --version\")",
+      "Bash(export PATH=\"$PATH:/c/Program Files/nodejs\")",
+      "Bash(export PATH:*)",
+      "Bash(gh auth status:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/nodejs:/c/Program Files/GitHub CLI\")",
+      "Bash(npm run build:*)"
+    ]
+  }
+}
