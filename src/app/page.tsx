@@ -44,8 +44,8 @@ export default async function Home() {
           Radar Imobiliário SP
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-          Consulte preços reais de imóveis em São Paulo com base em dados
-          oficiais de ITBI da Prefeitura.
+          Consulte preços reais de transações imobiliárias na cidade de São Paulo com base 
+          em dados oficiais de ITBI da Prefeitura de São Paulo.
         </p>
         <div className="mt-8 flex items-center justify-center gap-4">
           <Link
