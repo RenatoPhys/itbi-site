@@ -1,6 +1,4 @@
-import { createClient } from "@/lib/supabase-server";
 import Link from "next/link";
-import LogoutButton from "./logout-button";
 
 const stats = [
   { value: "+1 milhão", label: "de transações registradas" },
@@ -30,12 +28,7 @@ const sections = [
   },
 ];
 
-export default async function Home() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Hero */}
@@ -145,25 +138,6 @@ export default async function Home() {
           </p>
         </div>
       </section>
-
-      {/* Auth */}
-      <div className="pb-8 text-center">
-        {user ? (
-          <div className="inline-flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-2.5 dark:border-gray-800">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              {user.email}
-            </span>
-            <LogoutButton />
-          </div>
-        ) : (
-          <Link
-            href="/login"
-            className="text-sm font-medium text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-          >
-            Entrar / Criar conta
-          </Link>
-        )}
-      </div>
 
       {/* Footer */}
       <footer className="border-t border-gray-100 px-4 py-6 text-center dark:border-gray-800">
