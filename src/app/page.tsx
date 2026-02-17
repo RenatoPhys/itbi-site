@@ -127,6 +127,25 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Why real data matters */}
+      <section className="px-4 pb-16">
+        <div className="mx-auto max-w-3xl rounded-xl border border-emerald-200 bg-emerald-50 p-8 dark:border-emerald-800 dark:bg-emerald-950/30">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+            Por que dados reais de transação?
+          </h3>
+          <p className="mt-3 leading-relaxed text-gray-700 dark:text-gray-300">
+            Preços anunciados em sites como QuintoAndar, Loft e ZAP podem ser{" "}
+            <span className="font-semibold text-emerald-700 dark:text-emerald-400">
+              até 30% superiores
+            </span>{" "}
+            ao valor efetivamente pago na escritura. Aqui você consulta o preço
+            real registrado no ITBI — o imposto pago no momento da
+            transferência do imóvel — refletindo o valor que comprador e
+            vendedor de fato acordaram.
+          </p>
+        </div>
+      </section>
+
       {/* Auth */}
       <div className="pb-8 text-center">
         {user ? (

@@ -22,7 +22,7 @@ export default function Navbar() {
         >
           Radar Imobiliário SP
         </Link>
-        <div className="flex gap-1">
+        <div className="flex items-center gap-1">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -36,6 +36,25 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/login"
+            className="ml-2 rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+            title="Entrar"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-5 w-5"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </Link>
         </div>
       </div>
     </nav>
