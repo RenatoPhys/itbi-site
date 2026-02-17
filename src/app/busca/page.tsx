@@ -8,8 +8,11 @@ export default function BuscaPage() {
           Busca por Endereco
         </h1>
         <p className="mb-8 text-gray-600 dark:text-gray-400">
-          Digite o CEP e numero do imovel para consultar o historico de
-          transacoes.
+          Digite o CEP e número do imóvel (residencial) para consultar o histórico de
+          transações REAIS.
+
+          Por exemplo:
+          CEP = 05510-020, número = 582
         </p>
         <SearchForm />
       </div>

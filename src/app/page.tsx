@@ -154,7 +154,7 @@ export default async function Home() {
         <p className="mt-2 text-xs text-gray-400 dark:text-gray-600">
           Contato:{" "}
           <a
-            href="mailto:renato.critelli.ifusp@gmail.com"
+            href="mailto:mapa.imob.sp@gmail.com"
             className="underline hover:text-blue-500"
           >
             renato.critelli.ifusp@gmail.com
