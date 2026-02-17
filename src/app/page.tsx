@@ -157,7 +157,7 @@ export default async function Home() {
             href="mailto:mapa.imob.sp@gmail.com"
             className="underline hover:text-blue-500"
           >
-            renato.critelli.ifusp@gmail.com
+            mapa.imob.sp@gmail.com
           </a>
         </p>
       </footer>
