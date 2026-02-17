@@ -19,9 +19,12 @@ export default function MapaPage() {
         <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
           Mapa Interativo
         </h1>
-        <p className="mb-8 text-gray-600 dark:text-gray-400">
+        <p className="mb-4 text-gray-600 dark:text-gray-400">
           Transacoes de ITBI em Sao Paulo. Selecione o ano para filtrar.
         </p>
+        <div className="mb-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+          Esta pagina esta em fase de melhoria. Novos recursos e ajustes visuais serao implementados em breve.
+        </div>
         <MapContainer />
       </div>
     </div>

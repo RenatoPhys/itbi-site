@@ -8,18 +8,19 @@ const stats = [
   { value: "Dados oficiais", label: "da Prefeitura de São Paulo" },
 ];
 
+const featured = {
+  href: "/busca",
+  title: "Busca por Endereço",
+  description:
+    "Pesquise por CEP e número para ver o histórico completo de transações, a evolução do preço/m² e o valor de venda ao longo do tempo.",
+};
+
 const sections = [
   {
     href: "/mapa",
     title: "Mapa Interativo",
     description:
       "Visualize transações de ITBI no mapa de São Paulo com marcadores coloridos por faixa de preço, filtrados por ano.",
-  },
-  {
-    href: "/busca",
-    title: "Busca por Endereço",
-    description:
-      "Pesquise por CEP e número para ver o histórico completo de transações e a evolução do preço/m².",
   },
   {
     href: "/tendencias",
@@ -48,16 +49,16 @@ export default async function Home() {
         </p>
         <div className="mt-8 flex items-center justify-center gap-4">
           <Link
-            href="/mapa"
+            href="/busca"
             className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
           >
-            Explorar mapa
+            Buscar endereço
           </Link>
           <Link
-            href="/busca"
+            href="/mapa"
             className="rounded-lg border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-900"
           >
-            Buscar endereço
+            Explorar mapa
           </Link>
         </div>
       </section>
@@ -78,9 +79,34 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Feature cards */}
-      <section className="px-4 py-16">
-        <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
+      {/* Featured: Busca */}
+      <section className="px-4 pt-16 pb-8">
+        <div className="mx-auto max-w-4xl">
+          <Link
+            href={featured.href}
+            className="group block rounded-2xl border-2 border-blue-200 bg-blue-50 p-8 transition-all hover:border-blue-400 hover:shadow-lg dark:border-blue-900 dark:bg-blue-950/30 dark:hover:border-blue-700"
+          >
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-lg text-white">
+                &#128269;
+              </span>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                {featured.title}
+              </h3>
+            </div>
+            <p className="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-400">
+              {featured.description}
+            </p>
+            <span className="mt-4 inline-block text-sm font-semibold text-blue-600 group-hover:underline dark:text-blue-400">
+              Buscar agora &rarr;
+            </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* Other feature cards */}
+      <section className="px-4 pb-16 pt-4">
+        <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
           {sections.map((section) => (
             <Link
               key={section.href}
@@ -124,6 +150,15 @@ export default async function Home() {
       <footer className="border-t border-gray-100 px-4 py-6 text-center dark:border-gray-800">
         <p className="text-xs text-gray-400 dark:text-gray-600">
           Fonte: Secretaria Municipal da Fazenda — ITBI São Paulo
+        </p>
+        <p className="mt-2 text-xs text-gray-400 dark:text-gray-600">
+          Contato:{" "}
+          <a
+            href="mailto:renato.critelli.ifusp@gmail.com"
+            className="underline hover:text-blue-500"
+          >
+            renato.critelli.ifusp@gmail.com
+          </a>
         </p>
       </footer>
     </div>

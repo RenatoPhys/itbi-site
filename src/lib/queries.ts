@@ -2,9 +2,8 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { MapBounds, MapPoint, TransacaoITBI } from "./types";
 
 export function getDistinctYears(): number[] {
-  const currentYear = new Date().getFullYear();
   const years: number[] = [];
-  for (let y = currentYear; y >= 2006; y--) {
+  for (let y = 2025; y >= 2006; y--) {
     years.push(y);
   }
   return years;

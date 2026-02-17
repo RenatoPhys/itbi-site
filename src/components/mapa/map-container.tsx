@@ -28,10 +28,10 @@ function formatCurrency(value: number): string {
   });
 }
 
-function getPriceColor(preco_m2: number): string {
-  if (preco_m2 < 3000) return "#22c55e";    // green
-  if (preco_m2 < 6000) return "#eab308";    // yellow
-  if (preco_m2 < 10000) return "#f97316";   // orange
+function getValueColor(valor: number): string {
+  if (valor < 300000) return "#22c55e";      // green
+  if (valor < 600000) return "#eab308";      // yellow
+  if (valor < 1000000) return "#f97316";     // orange
   return "#ef4444";                          // red
 }
 
@@ -185,11 +185,11 @@ export default function MapContainerComponent() {
             </span>
           )}
           <div className="hidden items-center gap-2 text-xs text-gray-400 sm:flex">
-            <span className="inline-block h-3 w-3 rounded-full bg-green-500" /> &lt;3k
-            <span className="inline-block h-3 w-3 rounded-full bg-yellow-500" /> 3-6k
-            <span className="inline-block h-3 w-3 rounded-full bg-orange-500" /> 6-10k
-            <span className="inline-block h-3 w-3 rounded-full bg-red-500" /> &gt;10k
-            <span className="ml-1">R$/m²</span>
+            <span className="inline-block h-3 w-3 rounded-full bg-green-500" /> &lt;300k
+            <span className="inline-block h-3 w-3 rounded-full bg-yellow-500" /> 300-600k
+            <span className="inline-block h-3 w-3 rounded-full bg-orange-500" /> 600k-1M
+            <span className="inline-block h-3 w-3 rounded-full bg-red-500" /> &gt;1M
+            <span className="ml-1">R$</span>
           </div>
         </div>
       </div>
@@ -216,7 +216,7 @@ export default function MapContainerComponent() {
               <Marker
                 key={`${point.logradouro}-${point.numero}-${i}`}
                 position={[point.latitude, point.longitude]}
-                icon={createColoredIcon(getPriceColor(point.avg_preco_m2))}
+                icon={createColoredIcon(getValueColor(point.avg_valor))}
               >
                 <Popup>
                   <div className="text-sm">
