@@ -21,7 +21,7 @@ function formatCurrency(value: number): string {
   });
 }
 
-// Calcula os quantis de quebra a partir dos valores presentes
+// Calcula os quantis de quebra a partir dos valores presentes (7 níveis)
 function calcBreaks(
   data: Record<string, DistritoMediana>,
   metric: "valor" | "preco_m2"
@@ -31,14 +31,15 @@ function calcBreaks(
     .filter((v): v is number => v !== null && v > 0)
     .sort((a, b) => a - b);
 
-  if (values.length === 0) return [0, 1, 2, 3, 4];
+  if (values.length === 0) return [0, 1, 2, 3, 4, 5, 6];
 
   const q = (p: number) => values[Math.floor(p * (values.length - 1))];
-  return [q(0), q(0.25), q(0.5), q(0.75), q(1)];
+  // 8 pontos de corte → 7 faixas de cor
+  return [q(0), q(1/7), q(2/7), q(3/7), q(4/7), q(5/7), q(6/7), q(1)];
 }
 
-// Paleta de 5 cores: azul claro → ciano → amarelo → laranja → vermelho
-const PALETTE = ["#d0e4f7", "#74b9e0", "#f6d860", "#f4a334", "#e83030"];
+// Paleta de 7 cores: azul escuro → azul claro → ciano → verde → amarelo → laranja → vermelho
+const PALETTE = ["#2166ac", "#74b9e0", "#a8ddb5", "#41b563", "#f6d860", "#f4a334", "#e83030"];
 
 function getColor(value: number | null, breaks: number[]): string {
   if (value === null || value === 0) return "#e8e8e8";
@@ -46,7 +47,9 @@ function getColor(value: number | null, breaks: number[]): string {
   if (value <= breaks[2]) return PALETTE[1];
   if (value <= breaks[3]) return PALETTE[2];
   if (value <= breaks[4]) return PALETTE[3];
-  return PALETTE[4];
+  if (value <= breaks[5]) return PALETTE[4];
+  if (value <= breaks[6]) return PALETTE[5];
+  return PALETTE[6];
 }
 
 function ColorLegend({
@@ -67,7 +70,9 @@ function ColorLegend({
     { color: PALETTE[1], label: `até ${fmt(breaks[2])}` },
     { color: PALETTE[2], label: `até ${fmt(breaks[3])}` },
     { color: PALETTE[3], label: `até ${fmt(breaks[4])}` },
-    { color: PALETTE[4], label: `acima de ${fmt(breaks[4])}` },
+    { color: PALETTE[4], label: `até ${fmt(breaks[5])}` },
+    { color: PALETTE[5], label: `até ${fmt(breaks[6])}` },
+    { color: PALETTE[6], label: `acima de ${fmt(breaks[6])}` },
   ];
 
   return (
