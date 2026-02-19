@@ -34,3 +34,9 @@ export interface MapBounds {
   east: number;
   west: number;
 }
+
+export interface DistritoMediana {
+  median_valor: number | null;
+  median_preco_m2: number | null;
+  count: number;
+}

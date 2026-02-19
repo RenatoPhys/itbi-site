@@ -1,5 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { MapBounds, MapPoint, TransacaoITBI } from "./types";
+import { DistritoMediana, MapBounds, MapPoint, TransacaoITBI } from "./types";
 
 export function getDistinctYears(): number[] {
   const years: number[] = [];
@@ -68,6 +68,26 @@ export async function getMapPoints(
     avg_preco_m2: g.precos.reduce((a, b) => a + b, 0) / g.precos.length,
     count: g.valores.length,
   }));
+}
+
+export async function getMedianasPorDistrito(
+  supabase: SupabaseClient,
+  year: number
+): Promise<Record<string, DistritoMediana>> {
+  const { data, error } = await supabase.rpc("get_medianas_por_distrito", {
+    p_year: year,
+  });
+  if (error) throw error;
+
+  const result: Record<string, DistritoMediana> = {};
+  for (const row of data ?? []) {
+    result[row.distrito_nome] = {
+      median_valor: row.median_valor,
+      median_preco_m2: row.median_preco_m2,
+      count: Number(row.n),
+    };
+  }
+  return result;
 }
 
 export async function searchByCepNumero(
