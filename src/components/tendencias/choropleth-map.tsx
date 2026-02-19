@@ -145,7 +145,7 @@ export default function ChoroplethMap({
           zoom={10}
           style={{ height: "480px", width: "100%" }}
           zoomControl={true}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
